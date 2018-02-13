@@ -1,9 +1,12 @@
-﻿using System;
+﻿using KnockKnockReadifyChallenge.Middlewares.Errors;
+using System;
 
 namespace KnockKnockReadifyChallenge.Services.Fibonacci
 {
     public class FibonacciService : IFibonacciService
     {
+        private const long MAX_NUMBER = 92;
+
         /// <summary>
         /// Used Binet Formula since it's much faster than an ordinary one and also calculates values for negatives- http://mathworld.wolfram.com/BinetsFibonacciNumberFormula.html
         /// </summary>
@@ -11,7 +14,14 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
         /// <returns> N-th number in the fibonacci sequence. </returns>
         public long GetFibonacci(long n)
         {
-            return CalculateBinetFibonacci(n);
+            if (n >= -MAX_NUMBER && n <= MAX_NUMBER)
+            {
+                return CalculateBinetFibonacci(n);
+            }
+            else
+            {
+                throw new WrongInputException("Provided wrong input. Only integers from -92 to 92 are accepted.");
+            }
         }
 
         private long CalculateBinetFibonacci(long n)
