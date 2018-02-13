@@ -25,7 +25,7 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
             var cacheKey = $"Fibonacci:{n}";
             long result = 0;
 
-            if (n >= -MAX_NUMBER && n <= MAX_NUMBER)
+            if (IsInputWithinRange(n))
             {
                 if (!_memoryCacheWrapper.TryGetValue(cacheKey, out result))
                 {
@@ -39,6 +39,11 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
             {
                 throw new WrongInputException("Provided wrong input. Only integers from -92 to 92 are accepted.");
             }
+        }
+
+        private bool IsInputWithinRange(long n)
+        {
+            return n >= -MAX_NUMBER && n <= MAX_NUMBER;
         }
 
         private long CalculateBinetFibonacci(long n)
