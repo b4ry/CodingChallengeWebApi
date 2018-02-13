@@ -1,4 +1,5 @@
 ﻿using KnockKnockReadifyChallenge.Middlewares.Errors;
+using KnockKnockReadifyChallenge.Services.Wrappers;
 using System;
 
 namespace KnockKnockReadifyChallenge.Services.Fibonacci
@@ -7,6 +8,13 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
     {
         private const long MAX_NUMBER = 92;
 
+        private IMemoryCacheWrapper _memoryCacheWrapper;
+
+        public FibonacciService(IMemoryCacheWrapper memoryCacheWrapper)
+        {
+            _memoryCacheWrapper = memoryCacheWrapper;
+        }
+
         /// <summary>
         /// Used Binet Formula since it's much faster than an ordinary one and also calculates values for negatives- http://mathworld.wolfram.com/BinetsFibonacciNumberFormula.html
         /// </summary>
@@ -14,9 +22,18 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
         /// <returns> N-th number in the fibonacci sequence. </returns>
         public long GetFibonacci(long n)
         {
+            var cacheKey = $"Fibonacci:{n}";
+            long result = 0;
+
             if (n >= -MAX_NUMBER && n <= MAX_NUMBER)
             {
-                return CalculateBinetFibonacci(n);
+                if (!_memoryCacheWrapper.TryGetValue(cacheKey, out result))
+                {
+                    result = CalculateBinetFibonacci(n);
+                    _memoryCacheWrapper.Set(cacheKey, result);
+                }
+
+                return result;
             }
             else
             {
