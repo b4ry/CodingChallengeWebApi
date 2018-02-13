@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace KnockKnockReadifyChallenge
+namespace KnockKnockReadifyChallenge.Api
 {
     public class Program
     {
