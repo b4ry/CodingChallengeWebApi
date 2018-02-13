@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
+﻿using KnockKnockReadifyChallenge.Middlewares.Errors;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace KnockKnockReadifyChallenge.Middlewares.Filters
 {
@@ -13,7 +13,7 @@ namespace KnockKnockReadifyChallenge.Middlewares.Filters
         {
             if (!context.ModelState.IsValid)
             {
-                throw new Exception("Invalid request.");
+                throw new WrongInputException("Invalid request.");
             }
         }
     }

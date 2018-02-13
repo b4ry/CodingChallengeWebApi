@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using KnockKnockReadifyChallenge.Api.Extensions;
+using KnockKnockReadifyChallenge.Middlewares.Errors;
+using KnockKnockReadifyChallenge.Middlewares.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +26,10 @@ namespace KnockKnockReadifyChallenge.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(ModelValidationFilter));
+            });
 
             services.AddSwaggerGen(setup =>
             {
@@ -58,6 +63,8 @@ namespace KnockKnockReadifyChallenge.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
