@@ -14,17 +14,18 @@ namespace KnockKnockReadifyChallenge.Services.ReverseWords
 
         public string ReverseWords(string sentence)
         {
-            if (sentence == null)
+            if (sentence == null || sentence == string.Empty)
             {
-                sentence = string.Empty;
+                return string.Empty;
             }
 
             var cacheKey = $"ReverseWords:{sentence}";
+            var splitWords = sentence.Split(' ');
             string result;
 
             if (!_memoryCacheWrapper.TryGetValue(cacheKey, out result))
             {
-                result = Reverse(sentence);
+                result = Reverse(splitWords);
 
                 _memoryCacheWrapper.Set(cacheKey, result);
             }
@@ -32,12 +33,33 @@ namespace KnockKnockReadifyChallenge.Services.ReverseWords
             return result;
         }
 
-        private string Reverse(string sentence)
+        private string Reverse(string[] splitWords)
         {
-            var letters = sentence.ToCharArray();
-            Array.Reverse(letters);
+            string reversedWords = string.Empty;
+            bool first = true;
 
-            return new string(letters);
+            foreach (var word in splitWords)
+            {
+                if (word != string.Empty)
+                {
+                    var letters = word.ToCharArray();
+                    Array.Reverse(letters);
+
+                    if (!first)
+                    {
+                        reversedWords += " ";
+                    }
+
+                    reversedWords += new string(letters);
+                    first = false;
+                }
+                else
+                {
+                    reversedWords += " ";
+                }
+            }
+
+            return reversedWords;
         }
     }
 }
