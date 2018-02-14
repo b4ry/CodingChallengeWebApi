@@ -28,5 +28,16 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             Assert.Equal(string.Empty, result);
         }
+
+        [Fact]
+        public void ReverseWordsMethodMustReverseInputWhenSingleWordWithoutWhiteSpacesIsProvided()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var reverseWordsService = new ReverseWordsService(mockedMemoryCacheWrapper.Object);
+
+            var result = reverseWordsService.ReverseWords("test");
+
+            Assert.Equal("tset", result);
+        }
     }
 }
