@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -22,6 +21,11 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KnockKnockReadifyChallenge.Middlewares\KnockKnockReadifyChallenge.Middlewares.csproj" />
+    <ProjectReference Include="..\KnockKnockReadifyChallenge.Services\KnockKnockReadifyChallenge.Services.csproj" />
   </ItemGroup>
 
 </Project>

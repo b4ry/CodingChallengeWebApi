@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using System.Reflection;
 
 namespace KnockKnockReadifyChallenge.Api.DependencyInjection
 {
@@ -6,6 +7,17 @@ namespace KnockKnockReadifyChallenge.Api.DependencyInjection
     {
         protected override void Load(ContainerBuilder builder)
         {
+            RegisterServices(builder);
+        }
+
+        private void RegisterServices(ContainerBuilder builder)
+        {
+            var repositoryAssembly = Assembly.Load("KnockKnockReadifyChallenge.Services");
+
+            builder
+                .RegisterAssemblyTypes(repositoryAssembly)
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
     }
 }
