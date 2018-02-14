@@ -1,5 +1,4 @@
-﻿using System;
-using KnockKnockReadifyChallenge.Services.Wrappers;
+﻿using KnockKnockReadifyChallenge.Services.Wrappers;
 
 namespace KnockKnockReadifyChallenge.Services.TriangleType
 {
@@ -12,64 +11,75 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
             _memoryCacheWrapper = memoryCacheWrapper;
         }
 
-        public string DetermineTriangleType(int a, int b, int c)
+        public TriangleTypeEnum DetermineTriangleType(int sideA, int sideB, int sideC)
         {
-            long aLong = a;
-            long bLong = b;
-            long cLong = c;
-
-            bool doesTriangleExist = DoesTriangleExist(aLong, bLong, cLong);
+            bool doesTriangleExist = DoesTriangleExist(sideA, sideB, sideC);
 
             if(!doesTriangleExist)
             {
-                return "Error";
+                return TriangleTypeEnum.Error;
             }
 
-            var cacheKey = $"TriangleType:{a};{b};{c}";
-            string result;
+            var cacheKey = $"TriangleType:{sideA};{sideB};{sideC}";
+            TriangleTypeEnum result;
 
             if (!_memoryCacheWrapper.TryGetValue(cacheKey, out result))
             {
-                result = CalculateTriangleType(a, b, c);
+                result = CalculateTriangleType(sideA, sideB, sideC);
                 _memoryCacheWrapper.Set(cacheKey, result);
             }
 
             return result;
         }
 
-        private bool DoesTriangleExist(long a, long b, long c)
+        private bool DoesTriangleExist(int sideA, int sideB, int sideC)
         {
-            if (a < 0 || b < 0 || c < 0)
+            long sideALong = sideA;
+            long sideBLong = sideB;
+            long sideCLong = sideC;
+
+            if (IsAnySideNegative(sideA, sideB, sideC))
             {
                 return false;
             }
 
-            if (!((a + b) > c))
-            {
-                return false;
-            }
-
-            if (!((a + c) > b))
-            {
-                return false;
-            }
-
-            if (!((b + c) > a))
-            {
-                return false;
-            }
-
-            return true;
+            return CanCloseTriangle(sideALong, sideBLong, sideCLong);
         }
 
-        private string CalculateTriangleType(int a, int b, int c)
+        private bool IsAnySideNegative(int sideA, int sideB, int sideC)
         {
-            if (a == b && a == c && b == c)
+            return sideA < 0 || sideB < 0 || sideC < 0;
+        }
+
+        private static bool CanCloseTriangle(long sideA, long sideB, long sideC)
+        {
+            bool canCloseTriangle = true;
+
+            canCloseTriangle = canCloseTriangle && IsSumOfTwoSidesBiggerThanThird(sideA, sideB, sideC);
+            canCloseTriangle = canCloseTriangle && IsSumOfTwoSidesBiggerThanThird(sideA, sideC, sideB);
+            canCloseTriangle = canCloseTriangle && IsSumOfTwoSidesBiggerThanThird(sideB, sideC, sideA);
+
+            return canCloseTriangle;
+        }
+
+        private static bool IsSumOfTwoSidesBiggerThanThird(long sideA, long sideB, long sideC)
+        {
+            return (sideA + sideB) > sideC;
+        }
+
+        private TriangleTypeEnum CalculateTriangleType(int sideA, int sideB, int sideC)
+        {
+            if (AreAllOfTriangleSidesEqual(sideA, sideB, sideC))
             {
-                return "Equilateral";
+                return TriangleTypeEnum.Equilateral;
             }
 
-            return "SomeOtherTriangle";
+            return TriangleTypeEnum.Other;
+        }
+
+        private static bool AreAllOfTriangleSidesEqual(int sideA, int sideB, int sideC)
+        {
+            return sideA == sideB && sideA == sideC && sideB == sideC;
         }
     }
 }

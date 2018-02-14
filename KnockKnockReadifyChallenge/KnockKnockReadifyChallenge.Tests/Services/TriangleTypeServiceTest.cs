@@ -15,7 +15,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(0, 0, 0);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(7, 10, 5);
 
-            Assert.NotEqual("Error", triangleType);
+            Assert.NotEqual(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(5, 3, 8);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(2, 3, 1);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(10, 2, 3);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(-1, 5, 3);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(5, -1, 3);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -92,7 +92,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(3, 5, -1);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(-1, -1, -1);
 
-            Assert.Equal("Error", triangleType);
+            Assert.Equal(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(2147483647, 2147483647, 2147483647);
 
-            Assert.NotEqual("Error", triangleType);
+            Assert.NotEqual(TriangleTypeEnum.Error, triangleType);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             var triangleType = triangleTypeService.DetermineTriangleType(2147483647, 2147483647, 2147483647);
 
-            Assert.Equal("Equilateral", triangleType);
+            Assert.Equal(TriangleTypeEnum.Equilateral, triangleType);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace KnockKnockReadifyChallenge.Api.Controllers
         [HttpGet]
         public string Get([Required]int a, [Required]int b, [Required]int c)
         {
-            return _triangleTypeService.DetermineTriangleType(a, b, c);
+            return _triangleTypeService.DetermineTriangleType(a, b, c).ToString();
         }
     }
 }

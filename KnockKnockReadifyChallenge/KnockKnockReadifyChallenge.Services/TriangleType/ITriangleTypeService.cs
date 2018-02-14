@@ -2,6 +2,6 @@
 {
     public interface ITriangleTypeService
     {
-        string DetermineTriangleType(int a, int b, int c);
+        TriangleTypeEnum DetermineTriangleType(int sideA, int sideB, int sideC);
     }
 }
