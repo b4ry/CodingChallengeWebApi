@@ -118,7 +118,7 @@ namespace KnockKnockReadifyChallenge.Tests.Services
         }
 
         [Fact]
-        public void DetermineTriangleTypeMethodMustReturnEquilateralTypeForSidesLengthOfMaxInteger()
+        public void DetermineTriangleTypeMethodMustReturnEquilateralTypeForAllSidesEqual()
         {
             var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
             var triangleTypeService = new TriangleTypeService(mockedMemoryCacheWrapper.Object);
@@ -126,6 +126,28 @@ namespace KnockKnockReadifyChallenge.Tests.Services
             var triangleType = triangleTypeService.DetermineTriangleType(2147483647, 2147483647, 2147483647);
 
             Assert.Equal(TriangleTypeEnum.Equilateral, triangleType);
+        }
+
+        [Fact]
+        public void DetermineTriangleTypeMethodMustReturnIsoscelesTypeForAnyTwoSidesEqualAndOneDifferent()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var triangleTypeService = new TriangleTypeService(mockedMemoryCacheWrapper.Object);
+
+            var triangleType = triangleTypeService.DetermineTriangleType(2147483647, 2147483646, 2147483647);
+
+            Assert.Equal(TriangleTypeEnum.Isosceles, triangleType);
+        }
+
+        [Fact]
+        public void DetermineTriangleTypeMethodMustReturnScaleneTypeForAllSidesDifferent()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var triangleTypeService = new TriangleTypeService(mockedMemoryCacheWrapper.Object);
+
+            var triangleType = triangleTypeService.DetermineTriangleType(2147483647, 2147483646, 2147483645);
+
+            Assert.Equal(TriangleTypeEnum.Scalene, triangleType);
         }
     }
 }

@@ -4,6 +4,8 @@
     {
         Error,
         Equilateral,
+        Isosceles,
+        Scalene,
         Other
     }
 }

@@ -69,15 +69,35 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
 
         private TriangleTypeEnum CalculateTriangleType(int sideA, int sideB, int sideC)
         {
-            if (AreAllOfTriangleSidesEqual(sideA, sideB, sideC))
+            if (AreAllSidesEqual(sideA, sideB, sideC))
             {
                 return TriangleTypeEnum.Equilateral;
+            }
+
+            if (AreAnyOfTwoSidesEqual(sideA, sideB, sideC))
+            {
+                return TriangleTypeEnum.Isosceles;
+            }
+
+            if (AreAllSidesDifferent(sideA, sideB, sideC))
+            {
+                return TriangleTypeEnum.Scalene;
             }
 
             return TriangleTypeEnum.Other;
         }
 
-        private static bool AreAllOfTriangleSidesEqual(int sideA, int sideB, int sideC)
+        private static bool AreAllSidesDifferent(int sideA, int sideB, int sideC)
+        {
+            return sideA != sideB && sideA != sideC && sideB != sideC;
+        }
+
+        private static bool AreAnyOfTwoSidesEqual(int sideA, int sideB, int sideC)
+        {
+            return sideA == sideB || sideA == sideC || sideB == sideC;
+        }
+
+        private static bool AreAllSidesEqual(int sideA, int sideB, int sideC)
         {
             return sideA == sideB && sideA == sideC && sideB == sideC;
         }
