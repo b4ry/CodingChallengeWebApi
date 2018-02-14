@@ -14,7 +14,11 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
 
         public string DetermineTriangleType(int a, int b, int c)
         {
-            bool doesTriangleExist = DoesTriangleExist(a, b, c);
+            long aLong = a;
+            long bLong = b;
+            long cLong = c;
+
+            bool doesTriangleExist = DoesTriangleExist(aLong, bLong, cLong);
 
             if(!doesTriangleExist)
             {
@@ -24,8 +28,13 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
             return "SomeTriangle";
         }
 
-        private bool DoesTriangleExist(int a, int b, int c)
+        private bool DoesTriangleExist(long a, long b, long c)
         {
+            if (a < 0 || b < 0 || c < 0)
+            {
+                return false;
+            }
+
             if (!((a + b) > c))
             {
                 return false;
