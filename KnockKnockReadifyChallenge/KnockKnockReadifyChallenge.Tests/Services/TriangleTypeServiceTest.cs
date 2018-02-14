@@ -17,5 +17,16 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             Assert.Equal("Error", triangleType);
         }
+
+        [Fact]
+        public void DetermineTriangleTypeMethodMustNotReturnErrorTypeForValidTriangle()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var triangleTypeService = new TriangleTypeService(mockedMemoryCacheWrapper.Object);
+
+            var triangleType = triangleTypeService.DetermineTriangleType(7, 10, 5);
+
+            Assert.NotEqual("Error", triangleType);
+        }
     }
 }

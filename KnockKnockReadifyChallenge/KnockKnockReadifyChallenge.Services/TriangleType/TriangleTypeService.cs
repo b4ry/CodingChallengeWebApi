@@ -1,4 +1,5 @@
-﻿using KnockKnockReadifyChallenge.Services.Wrappers;
+﻿using System;
+using KnockKnockReadifyChallenge.Services.Wrappers;
 
 namespace KnockKnockReadifyChallenge.Services.TriangleType
 {
@@ -13,7 +14,34 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
 
         public string DetermineTriangleType(int a, int b, int c)
         {
-            return "Error";
+            bool doesTriangleExist = DoesTriangleExist(a, b, c);
+
+            if(!doesTriangleExist)
+            {
+                return "Error";
+            }
+
+            return "SomeTriangle";
+        }
+
+        private bool DoesTriangleExist(int a, int b, int c)
+        {
+            if (!((a + b) > c))
+            {
+                return false;
+            }
+
+            if (!((a + c) > b))
+            {
+                return false;
+            }
+
+            if (!((b + c) > a))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
