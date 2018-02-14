@@ -105,5 +105,27 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             Assert.Equal("tset tser", result);
         }
+
+        [Fact]
+        public void ReverseWordsMethodMustNotRemoveInitialSpaces()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var reverseWordsService = new ReverseWordsService(mockedMemoryCacheWrapper.Object);
+
+            var result = reverseWordsService.ReverseWords(" test rest");
+
+            Assert.Equal(" tset tser", result);
+        }
+
+        [Fact]
+        public void ReverseWordsMethodMustNotRemoveAnySpaces()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var reverseWordsService = new ReverseWordsService(mockedMemoryCacheWrapper.Object);
+
+            var result = reverseWordsService.ReverseWords("  test     rest            VEST      ");
+
+            Assert.Equal("  tset     tser            TSEV      ", result);
+        }
     }
 }
