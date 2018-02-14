@@ -12,7 +12,7 @@ namespace KnockKnockReadifyChallenge.Services.ReverseWords
             _memoryCacheWrapper = memoryCacheWrapper;
         }
 
-        public string ReverseWords(string words)
+        public string ReverseWords(string sentence)
         {
             return string.Empty;
         }

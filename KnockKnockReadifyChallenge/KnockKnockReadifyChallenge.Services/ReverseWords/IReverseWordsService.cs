@@ -2,6 +2,6 @@
 {
     public interface IReverseWordsService
     {
-        string ReverseWords(string words);
+        string ReverseWords(string sentence);
     }
 }

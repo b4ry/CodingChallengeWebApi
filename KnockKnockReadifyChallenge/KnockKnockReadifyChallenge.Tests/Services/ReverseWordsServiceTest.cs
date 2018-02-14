@@ -17,5 +17,16 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             Assert.Equal(string.Empty, result);
         }
+
+        [Fact]
+        public void ReverseWordsMethodMustTreatNullStringAsEmpty()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var reverseWordsService = new ReverseWordsService(mockedMemoryCacheWrapper.Object);
+
+            var result = reverseWordsService.ReverseWords(null);
+
+            Assert.Equal(string.Empty, result);
+        }
     }
 }
