@@ -4,7 +4,7 @@ using KnockKnockReadifyChallenge.Services.Wrappers;
 using Moq;
 using Xunit;
 
-namespace KnockKnockReadifyChallenge.Tests
+namespace KnockKnockReadifyChallenge.Tests.Services
 {
     public class FibonacciServiceTest
     {
