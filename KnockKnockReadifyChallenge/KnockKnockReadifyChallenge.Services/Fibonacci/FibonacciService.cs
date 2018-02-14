@@ -6,7 +6,7 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
 {
     public class FibonacciService : IFibonacciService
     {
-        private const long MAX_NUMBER = 92;
+        private const long maxNumber = 92;
 
         private IMemoryCacheWrapper _memoryCacheWrapper;
 
@@ -43,7 +43,7 @@ namespace KnockKnockReadifyChallenge.Services.Fibonacci
 
         private bool IsInputWithinRange(long n)
         {
-            return n >= -MAX_NUMBER && n <= MAX_NUMBER;
+            return n >= -maxNumber && n <= maxNumber;
         }
 
         private long CalculateBinetFibonacci(long n)
