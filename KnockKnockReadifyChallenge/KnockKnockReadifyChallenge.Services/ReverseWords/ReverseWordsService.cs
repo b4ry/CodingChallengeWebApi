@@ -40,23 +40,16 @@ namespace KnockKnockReadifyChallenge.Services.ReverseWords
 
             foreach (var word in splitWords)
             {
-                if (word != string.Empty)
-                {
-                    var letters = word.ToCharArray();
-                    Array.Reverse(letters);
+                var letters = word.ToCharArray();
+                Array.Reverse(letters);
 
-                    if (!first)
-                    {
-                        reversedWords += " ";
-                    }
-
-                    reversedWords += new string(letters);
-                    first = false;
-                }
-                else
+                if (!first)
                 {
                     reversedWords += " ";
                 }
+
+                reversedWords += new string(letters);
+                first = false;
             }
 
             return reversedWords;
