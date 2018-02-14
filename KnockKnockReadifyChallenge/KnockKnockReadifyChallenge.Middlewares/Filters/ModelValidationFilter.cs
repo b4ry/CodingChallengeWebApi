@@ -1,5 +1,7 @@
 ﻿using KnockKnockReadifyChallenge.Middlewares.Errors;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 
 namespace KnockKnockReadifyChallenge.Middlewares.Filters
 {
@@ -13,7 +15,19 @@ namespace KnockKnockReadifyChallenge.Middlewares.Filters
         {
             if (!context.ModelState.IsValid)
             {
-                throw new WrongInputException("Invalid request.");
+                var errorMessage = "Provided wrong inputs. Invalid inputs - ";
+
+                var errors = context.ModelState
+                    .Where(p => p.Value.ValidationState == ModelValidationState.Invalid)
+                    .Select(invalidProp => new { PropertyName = invalidProp.Key, InvalidValue = invalidProp.Value.RawValue })
+                    .ToArray();
+
+                foreach (var error in errors)
+                {
+                    errorMessage += $"{error.PropertyName} : {error.InvalidValue}; ";
+                }
+
+                throw new WrongInputException(errorMessage);
             }
         }
     }
