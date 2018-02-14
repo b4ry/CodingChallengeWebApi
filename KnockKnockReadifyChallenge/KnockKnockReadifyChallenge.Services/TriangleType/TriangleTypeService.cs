@@ -25,7 +25,16 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
                 return "Error";
             }
 
-            return "SomeTriangle";
+            var cacheKey = $"TriangleType:{a};{b};{c}";
+            string result;
+
+            if (!_memoryCacheWrapper.TryGetValue(cacheKey, out result))
+            {
+                result = CalculateTriangleType(a, b, c);
+                _memoryCacheWrapper.Set(cacheKey, result);
+            }
+
+            return result;
         }
 
         private bool DoesTriangleExist(long a, long b, long c)
@@ -51,6 +60,16 @@ namespace KnockKnockReadifyChallenge.Services.TriangleType
             }
 
             return true;
+        }
+
+        private string CalculateTriangleType(int a, int b, int c)
+        {
+            if (a == b && a == c && b == c)
+            {
+                return "Equilateral";
+            }
+
+            return "SomeOtherTriangle";
         }
     }
 }

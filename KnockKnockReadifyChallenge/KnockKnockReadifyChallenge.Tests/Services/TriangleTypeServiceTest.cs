@@ -116,5 +116,16 @@ namespace KnockKnockReadifyChallenge.Tests.Services
 
             Assert.NotEqual("Error", triangleType);
         }
+
+        [Fact]
+        public void DetermineTriangleTypeMethodMustReturnEquilateralTypeForSidesLengthOfMaxInteger()
+        {
+            var mockedMemoryCacheWrapper = new Mock<IMemoryCacheWrapper>();
+            var triangleTypeService = new TriangleTypeService(mockedMemoryCacheWrapper.Object);
+
+            var triangleType = triangleTypeService.DetermineTriangleType(2147483647, 2147483647, 2147483647);
+
+            Assert.Equal("Equilateral", triangleType);
+        }
     }
 }
